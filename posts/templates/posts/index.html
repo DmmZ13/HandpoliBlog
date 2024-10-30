@@ -10,10 +10,11 @@
 <section class="lista-de-cards">
   {% for post in post_list %}
   <article class="card">
-    <a href="{% url 'posts:detail' forloop.counter %}"
-      ><img src="{{ post.poster_url }}" alt="Poster do post {{ post.title}}"
-    /></a>
-    <p>{{ post.title }} ({{ post.date }})</p>
+    <a href="{% url 'posts:detail' post.id %}"> 
+    <img src="{{ post.poster_url }}" alt="Poster do post{{ post.title }}"/>
+    </a>
+    <p>{{ post.title }} ({{ post.date|date:"d/m/y - H:i"  }})</p>
+    
   </article>
   {% endfor %}
 </section>
