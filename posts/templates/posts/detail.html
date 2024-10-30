@@ -1,0 +1,12 @@
+{% extends 'base.html' %} {% block title %} {{ post.title }} {{
+    post.date }} {% endblock title %} {% block content %}
+    <h2> {{ post.title }} ({{ post.date }}) </h2>
+    
+    <section class="dados-de-filme">
+      <img src="{{ post.poster_url }}" alt="Poster do filme {{ post.title}}" />
+      <ul>
+        <p> {{post.content}} </p>
+      </ul>
+    </section>
+    
+    {% endblock content %}
