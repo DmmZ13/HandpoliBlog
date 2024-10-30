@@ -1,3 +1,5 @@
+{% load static %} <!-- adicione esta linha -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,15 +8,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        {% block title %}{% endblock %} | Blog do Diego
+        {% block title %}{% endblock %} | Watch that film!
     </title>
+    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" /> <!-- adicione esta linha -->
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"> <!-- adicione esta linha -->
 </head>
 
 <body>
     <header id="cabecalho-principal">
-        <a href="{% url 'index' %}">
-            <p>WTF</p>
-        </a>
+        <a href="{% url 'index' %}"> <img src="{% static 'logo.svg' %}"> </a> <!-- adicione esta linha -->
         <nav id="navegacao-principal">
             <ul>
                 <li><a href="{% url 'about' %}">Sobre</a></li>
