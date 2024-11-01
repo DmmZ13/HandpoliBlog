@@ -18,3 +18,17 @@ class Comments(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name='comments')
     def __str__(self):
         return f'"{self.text}" - {self.author.username}'
+    
+class Category(models.Model):
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        null=True,  # Use `null=True` se o autor puder ser opcional
+        blank=True  # Permite que o autor não seja obrigatório no formulário de criação
+    )
+    name = models.CharField(max_length=255)
+    description = models.TextField()  
+    posts = models.ManyToManyField(Post)
+
+    def __str__(self):
+        return f'{self.name} by {self.author}'

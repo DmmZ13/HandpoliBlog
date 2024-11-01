@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Categorias
+{% endblock title %}
+
+{% block content %}
+<h2>Categorias de Posts</h2>
+
+<section>
+    {% for category in object_list %}
+    <hr>
+    <article>
+        <header>
+            <h3>{{ category.name }}</h3>
+        </header>
+        <div class="lista-de-cards">
+            {% for post in category.posts.all %}
+            <div class="card">
+                <a href="{% url 'posts:detail' post.id %}">
+                    <img src="{{ post.poster_url }}" alt="Poster do Post {{ post.title }}">
+                </a>
+                <p>{{ post.title }} ({{ post.date|date:"d/m/Y - H:i" }})</p>
+            </div>
+            {% endfor %}
+        </div>
+    </article>
+    {% endfor %}
+</section>
+
+{% endblock content %}

@@ -4,7 +4,7 @@ from .temp_data import post_data
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .models import Post, Comments
+from .models import Post, Comments, Category
 from .forms import PostForm, CommentsForm
 from django.views import generic
 from django.urls import reverse_lazy
@@ -57,3 +57,17 @@ def create_comment(request, post_id):
         form = CommentsForm()
     context = {'form': form, 'post': post}
     return render(request, 'posts/comment.html', context)
+
+class CategoryListView(generic.ListView):
+    model = Category
+    template_name = 'posts/category.html'
+
+class CategoryDetailView(generic.DetailView):
+    model = Category
+    template_name = 'posts/index.html'  # Reutilizando o template de listagem de posts
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['post_list'] = self.object.posts.all()  # Acessa os posts relacionados à categoria
+        context['category_name'] = self.object.name  # Passa o nome da categoria
+        return context
