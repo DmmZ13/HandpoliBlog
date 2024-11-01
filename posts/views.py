@@ -4,11 +4,10 @@ from .temp_data import post_data
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .models import Post
-from .forms import PostForm
+from .models import Post, Comments
+from .forms import PostForm, CommentsForm
 from django.views import generic
 from django.urls import reverse_lazy
-
 
 class PostListView(generic.ListView):
     model = Post
@@ -40,3 +39,21 @@ class PostDeleteView(generic.DeleteView):
     model = Post
     template_name = 'posts/delete.html'
     success_url = reverse_lazy('posts:index')
+
+def create_comment(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    if request.method == 'POST':
+        form = CommentsForm(request.POST)
+        if form.is_valid():
+            comment_author = form.cleaned_data['author']
+            comment_text = form.cleaned_data['text']
+            comment = Comments(author=comment_author,
+                            text=comment_text,
+                            post=post)
+            comment.save()
+            return HttpResponseRedirect(
+                reverse('posts:detail', args=(post_id, )))
+    else:
+        form = CommentsForm()
+    context = {'form': form, 'post': post}
+    return render(request, 'posts/comment.html', context)
