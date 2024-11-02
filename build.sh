@@ -7,6 +7,9 @@ pip install -r requirements.txt
 python manage.py collectstatic --no-input
 python manage.py migrate
 
+# Import data from db.json
+python manage.py loaddata db.json
+
 # create superuser if missing
 echo "
 import os
