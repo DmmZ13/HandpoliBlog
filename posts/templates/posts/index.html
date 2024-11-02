@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>
     {% if category_name %}
-    Posts em {{ category_name }}
+    <h2> Posts em {{ category_name }} </h2> 
     {% else %}
-    Todos os Posts
+    <h2>Todos os Posts</h2> 
+    <section>
+      <p>
+        Quer postar algo?
+        <a href="{% url 'posts:create' %}">Adicionar Novo Post</a>
+      </p>
+    </section>
     {% endif %}
-</h2>
 
 {% if post_list %}
 <section class="lista-de-cards">
